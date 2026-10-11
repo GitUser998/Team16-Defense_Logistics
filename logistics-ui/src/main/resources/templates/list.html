@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${module.title}">Module</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div class="content">
+    <h2 th:text="${module.title}"></h2>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+    <p class="message" th:if="${message}" th:text="${message}"></p>
+
+    <div th:if="${showAdd}">
+    <h3>Add New</h3>
+    <form th:action="@{/m/{k}/save(k=${module.key})}" method="post" class="addform">
+        <div class="field" th:each="f : ${module.fields}">
+            <label th:text="${f[1]}"></label>
+            <select th:if="${#strings.startsWith(f[2], 'select:')}" th:name="${f[0]}">
+                <option th:each="o : ${#strings.arraySplit(#strings.substringAfter(f[2], 'select:'), ',')}"
+                        th:value="${o}" th:text="${o}"></option>
+            </select>
+            <input th:unless="${#strings.startsWith(f[2], 'select:')}"
+                   th:name="${f[0]}"
+                   th:type="${f[2] == 'optional' ? 'text' : f[2]}"
+                   th:required="${f[2] != 'optional'}">
+        </div>
+        <br>
+        <button type="submit">Add</button>
+    </form>
+    </div>
+
+    <h3>All Records</h3>
+    <table>
+        <tr>
+            <th th:each="c : ${module.columns}" th:text="${c[1]}"></th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="row : ${rows}">
+            <td th:each="c : ${module.columns}" th:text="${row[c[0]]}"></td>
+            <td>
+                <a th:if="${showEdit}"
+                   th:href="@{/m/{k}/edit/{id}(k=${module.key},id=${row[module.idField]})}">Edit</a>
+                <a th:if="${showDelete}"
+                   th:href="@{/m/{k}/delete/{id}(k=${module.key},id=${row[module.idField]})}"
+                   onclick="return confirm('Delete this record?')">Delete</a>
+
+                <form class="rowform" method="post" th:if="${showActions and !#lists.isEmpty(module.actions)}"
+                      th:action="@{/m/{k}/action/{id}(k=${module.key},id=${row[module.idField]})}">
+                    <select name="action">
+                        <option th:each="a : ${module.actions}" th:value="${a[0]}" th:text="${a[1]}"></option>
+                    </select>
+                    <input type="text" name="value" placeholder="value if needed">
+                    <button type="submit">Go</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <p th:if="${#lists.isEmpty(rows)}">No records to show.</p>
+</div>
+</body>
+</html>

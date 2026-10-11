@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.vit.model.Personnel;
@@ -15,9 +16,14 @@ import com.vit.model.Personnel;
 @Repository
 public class PersonnelDAO {
 
-    private final String URL = "jdbc:postgresql://localhost:5432/personnel_db";
-    private final String USER = "postgres";
-    private final String PASSWORD = "admin";
+    @Value("${db.url}")
+    private String URL;
+
+    @Value("${db.user}")
+    private String USER;
+
+    @Value("${db.password}")
+    private String PASSWORD;
 
     private Personnel makePersonnel(ResultSet rs) throws SQLException {
         return new Personnel(
@@ -42,7 +48,7 @@ public class PersonnelDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return list;
     }
@@ -60,7 +66,7 @@ public class PersonnelDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return list;
     }
@@ -79,7 +85,7 @@ public class PersonnelDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return personnel;
     }
@@ -99,7 +105,7 @@ public class PersonnelDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -118,7 +124,7 @@ public class PersonnelDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -133,7 +139,7 @@ public class PersonnelDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -147,7 +153,7 @@ public class PersonnelDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 }

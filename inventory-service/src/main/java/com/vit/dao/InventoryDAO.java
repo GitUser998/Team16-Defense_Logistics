@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.vit.model.InventoryItem;
@@ -15,9 +16,14 @@ import com.vit.model.InventoryItem;
 @Repository
 public class InventoryDAO {
 
-    private final String URL = "jdbc:postgresql://localhost:5432/inventory_db";
-    private final String USER = "postgres";
-    private final String PASSWORD = "admin";
+    @Value("${db.url}")
+    private String URL;
+
+    @Value("${db.user}")
+    private String USER;
+
+    @Value("${db.password}")
+    private String PASSWORD;
 
     private InventoryItem makeItem(ResultSet rs) throws SQLException {
         return new InventoryItem(
@@ -43,7 +49,7 @@ public class InventoryDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return list;
     }
@@ -61,7 +67,7 @@ public class InventoryDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return list;
     }
@@ -80,7 +86,7 @@ public class InventoryDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return item;
     }
@@ -101,7 +107,7 @@ public class InventoryDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -121,11 +127,11 @@ public class InventoryDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
-    // Reduces stock. Returns 1 if issued, 0 if not enough stock or item not found.
+    // reduce stock, returns 1 if done, 0 if stock is less or item not found
     public int issue(String id, int qty) {
         int rows = 0;
         String sql = "UPDATE inventory_table SET quantity = quantity - ? WHERE item_id = ? AND quantity >= ?";
@@ -139,7 +145,7 @@ public class InventoryDAO {
             rows = ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return rows;
     }
@@ -154,7 +160,7 @@ public class InventoryDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 }

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.vit.model.Equipment;
@@ -15,9 +16,14 @@ import com.vit.model.Equipment;
 @Repository
 public class EquipmentDAO {
 
-    private final String URL = "jdbc:postgresql://localhost:5432/equipment_db";
-    private final String USER = "postgres";
-    private final String PASSWORD = "admin";
+    @Value("${db.url}")
+    private String URL;
+
+    @Value("${db.user}")
+    private String USER;
+
+    @Value("${db.password}")
+    private String PASSWORD;
 
     private Equipment makeEquipment(ResultSet rs) throws SQLException {
         return new Equipment(
@@ -43,7 +49,7 @@ public class EquipmentDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return list;
     }
@@ -61,7 +67,7 @@ public class EquipmentDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return list;
     }
@@ -80,7 +86,7 @@ public class EquipmentDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return equipment;
     }
@@ -101,7 +107,7 @@ public class EquipmentDAO {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex.getMessage(), ex);
         }
     }
 
@@ -121,7 +127,7 @@ public class EquipmentDAO {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex.getMessage(), ex);
         }
     }
 
@@ -136,7 +142,7 @@ public class EquipmentDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -150,7 +156,7 @@ public class EquipmentDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="navbar" class="navbar">
+    <span class="brand">Defense Logistics - Team16</span>
+    <a href="/">Dashboard</a>
+    <a href="/m/personnel">Personnel</a>
+    <a href="/m/equipment">Equipment</a>
+    <a href="/m/vehicles">Vehicles</a>
+    <a href="/m/inventory">Inventory</a>
+    <a href="/m/requests">Requests</a>
+    <a href="/m/maintenance">Maintenance</a>
+    <a href="/m/deployments">Deployments</a>
+    <span class="userbox" th:if="${userName != null}">
+        <span th:text="${userName} + ' (' + ${role} + ')'"></span>
+        <a href="/logout">Logout</a>
+    </span>
+</div>
+</body>
+</html>

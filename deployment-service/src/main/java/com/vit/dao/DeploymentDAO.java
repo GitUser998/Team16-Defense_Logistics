@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.vit.model.Deployment;
@@ -16,9 +17,14 @@ import com.vit.model.Deployment;
 @Repository
 public class DeploymentDAO {
 
-    private final String URL = "jdbc:postgresql://localhost:5432/deployment_db";
-    private final String USER = "postgres";
-    private final String PASSWORD = "admin";
+    @Value("${db.url}")
+    private String URL;
+
+    @Value("${db.user}")
+    private String USER;
+
+    @Value("${db.password}")
+    private String PASSWORD;
 
     public List<Deployment> findAll() {
         List<Deployment> list = new ArrayList<>();
@@ -38,7 +44,7 @@ public class DeploymentDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return list;
     }
@@ -62,7 +68,7 @@ public class DeploymentDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
         return deployment;
     }
@@ -81,7 +87,7 @@ public class DeploymentDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -99,7 +105,7 @@ public class DeploymentDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -114,7 +120,7 @@ public class DeploymentDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 
@@ -128,7 +134,7 @@ public class DeploymentDAO {
             ps.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         }
     }
 }

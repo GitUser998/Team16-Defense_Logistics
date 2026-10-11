@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div th:replace="~{fragments :: navbar}"></div>
+
+<div class="content">
+    <h2>Dashboard</h2>
+    <p><b>Overall readiness: <span th:text="${overallReadiness} + '%'"></span></b></p>
+
+    <h3>Resource availability</h3>
+    <table class="small">
+        <tr><th>Resource</th><th>Available</th><th>Total</th><th>Readiness</th></tr>
+        <tr><td>Personnel</td><td th:text="${personnelAvailable}"></td><td th:text="${personnelTotal}"></td><td th:text="${personnelPercent} + '%'"></td></tr>
+        <tr><td>Vehicles</td><td th:text="${vehiclesAvailable}"></td><td th:text="${vehiclesTotal}"></td><td th:text="${vehiclesPercent} + '%'"></td></tr>
+        <tr><td>Equipment</td><td th:text="${equipmentAvailable}"></td><td th:text="${equipmentTotal}"></td><td th:text="${equipmentPercent} + '%'"></td></tr>
+    </table>
+
+    <h3>Other status</h3>
+    <table class="small">
+        <tr><td>Pending requests</td><td th:text="${pendingRequests}"></td><td><a href="/m/requests">open</a></td></tr>
+        <tr><td>Low stock items</td><td th:text="${lowStock}"></td><td><a href="/m/inventory">open</a></td></tr>
+        <tr><td>Maintenance in next 7 days</td><td th:text="${upcomingMaintenance}"></td><td><a href="/m/maintenance">open</a></td></tr>
+        <tr><td>Maintenance overdue</td><td th:text="${overdueMaintenance}"></td><td><a href="/m/maintenance">open</a></td></tr>
+        <tr><td>Total deployments</td><td th:text="${totalDeployments}"></td><td><a href="/m/deployments">open</a></td></tr>
+    </table>
+</div>
+</body>
+</html>

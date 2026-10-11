@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="navbar"><span class="brand">Defense Logistics - Team16</span></div>
+
+<div class="content">
+    <h2>Login</h2>
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <form action="/login" method="post" class="addform" style="width: 300px;">
+        <div class="field">
+            <label>Username</label>
+            <input type="text" name="username" required>
+        </div>
+        <br>
+        <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
+        <br>
+        <button type="submit">Login</button>
+    </form>
+
+    <p>Demo users: admin / admin123, officer / officer123, unit / unit123</p>
+</div>
+</body>
+</html>

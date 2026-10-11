@@ -1,0 +1,19 @@
+body { font-family: Arial, sans-serif; margin: 0; background: white; color: black; }
+.navbar { background: #003366; padding: 10px 15px; }
+.navbar .brand { color: white; font-weight: bold; margin-right: 25px; }
+.navbar a { color: white; margin-right: 14px; }
+.content { padding: 15px 25px; }
+table { border-collapse: collapse; width: 100%; }
+table.small { width: 450px; }
+th, td { border: 1px solid #999; padding: 5px; font-size: 13px; text-align: left; vertical-align: top; }
+th { background: #dddddd; }
+.addform { border: 1px solid #999; padding: 10px; margin-bottom: 20px; }
+.field { display: inline-block; margin: 0 12px 8px 0; vertical-align: top; }
+.field label { display: block; font-size: 13px; }
+button { padding: 4px 12px; }
+.rowform { margin-top: 5px; }
+.rowform input { width: 100px; }
+.error { color: red; }
+.message { color: green; }
+.userbox { float: right; color: white; }
+.userbox a { margin-left: 10px; }
