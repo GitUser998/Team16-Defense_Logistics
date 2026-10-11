@@ -103,5 +103,5 @@ Extra APIs:
 
 # 1. Priyanshu Singh - 26MCA0084 - Team Leader
 # 2. Sristhi Mishra - 26MCA0079
-# 3. Priya singh - 26MCA0076
+# 3. Priya singh Subodh - 26MCA0076
 # 4. Deepti - 26MCA0120
